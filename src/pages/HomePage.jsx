@@ -14,7 +14,7 @@ const Homepage = () => {
     const [postData,setPostData] = useState({
         title:"",
         content:"",
-        publish: null,
+        publish: false
     })
 
     const handleNewPostChange = (e) => {
@@ -70,24 +70,38 @@ const Homepage = () => {
 
         console.log(postData)
 
-        modalRef.current.close()
 
+        try {
 
-        // try {
+            const response = await postBlog(postData)
 
-        //     const response = await postBlog()
+            if(response.ok){
 
-        //     if(response.ok){
+                console.log("New post added")
+                modalRef.current.close()
 
-        //         console.log("New post added")
-        //         modalRef.current.close()
-
-        //     }
+            }
 
             
-        // } catch (error) {
-        //     console.log(error)
-        // }
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+    function openBlogEditModal(blog){
+
+        console.log(blog)
+
+        setPostData(
+                {title: blog.title,
+                content: blog.content,
+                publish: blog.published
+        })
+
+        modalRef.current.showModal()
+
+    
 
     }
     
@@ -97,7 +111,6 @@ const Homepage = () => {
     return (
         <div>
             <h1>POSTS </h1>
-
 
             <dialog id="my_modal_4" className="modal" ref={modalRef}>
                 <div className="modal-box w-11/12 max-w-5xl">
@@ -109,19 +122,19 @@ const Homepage = () => {
                         <div>
 
                         <label htmlFor="title" className="label">Title: </label>
-                        <input id="title" type="text" className="input input-bordered  md:w-64" placeholder="Enter Post Title" name="title" onChange={handleNewPostChange}/>
+                        <input id="title" type="text" className="input input-bordered  md:w-64" placeholder="Enter Post Title" name="title" onChange={handleNewPostChange} value={postData.title}/>
                         </div>
 
                         
                             <label htmlFor="content">Content: </label>
-                            <textarea name="content" id="content" className="textarea textarea-bordered" onChange={handleNewPostChange} placeholder="Write your contents here..." ></textarea>
+                            <textarea name="content" id="content" className="textarea textarea-bordered" onChange={handleNewPostChange} value={postData.content} placeholder="Write your contents here..." ></textarea>
                         
                         
 
 
                         <label className="label cursor-pointer md:w-64">
                             <span className="label-text">Published</span>
-                            <input type="checkbox" className="toggle" defaultChecked={false} name="publish"  onChange={handleNewPostChange}/>
+                            <input type="checkbox" className="toggle"  name="publish"  onChange={handleNewPostChange} checked={postData.publish}/>
                         </label>
 
 
@@ -132,6 +145,7 @@ const Homepage = () => {
             </dialog>
 
             <button className="btn" onClick={openAddPostModal}>Add Post</button>
+            <div className="divider divider-primary">All Blogs</div>
 
             <div className="w-full flex items-center justify-center flex-wrap gap-5 ">
 
@@ -140,9 +154,9 @@ const Homepage = () => {
                         return <div key={blog.id} className="card bg-neutral text-neutral-content w-96">
                                     <div className="card-body items-center text-center">
                                         <h2 className="card-title">{blog.title}</h2>
-                                        <p>{blog.content.slice(80)}</p>
+                                        <p className="text-left">{`${blog.content.slice(0,150)}...`}</p>
                                         <div className="card-actions justify-end">
-                                            <button className="btn btn-primary">Edit</button>
+                                            <button className="btn btn-primary" onClick={() => {openBlogEditModal(blog)}}>Edit</button>
                                             <button className="btn btn-warning">Delete</button>
                                         </div>
                                     </div>
