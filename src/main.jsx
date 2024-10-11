@@ -8,25 +8,42 @@ import App from './App.jsx'
 import './index.css'
 import Homepage from './pages/Homepage.jsx'
 import LoginPage  from './pages/LoginPage.jsx'
+import UsersPage from './pages/UsersPage'
+import BlogDetailPage from './pages/BlogDetailPage.jsx'
+import PostsPage from './pages/PostsPage.jsx'
+import ErrorPage from './pages/ErrorPage.jsx'
 
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App/>,
+    errorElement: <ErrorPage/>,
     children: [
       {
         path:'/',
         element: <Homepage/>,
+        children: [
+          {
+            path: '/',
+            element: <PostsPage/>
+          },
+          {
+            path: '/users',
+            element: <UsersPage/> 
+          },
+          {  
+            path : '/post/:postId',
+            element: <BlogDetailPage/>
+          }
+        ]
       },
       {
         path: '/login',
         element: <LoginPage/>
       }
-
-
     ]
-  }]
+  }],
 )
 
 createRoot(document.getElementById('root')).render(

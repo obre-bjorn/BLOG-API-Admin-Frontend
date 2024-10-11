@@ -7,6 +7,7 @@ const API_BASE_URL = "http://localhost:5000"
 
 const useFetch = (token) => {
 
+
     const {logout}  = useAuth()
 
     const handleResponse = useCallback(async (response) => {
@@ -15,6 +16,8 @@ const useFetch = (token) => {
 
             logout()
             throw new Error('Unauthorized')
+
+
 
         }
 
@@ -25,7 +28,7 @@ const useFetch = (token) => {
 
 
     const fetchWithAuth = useCallback(async (url, options = {}) =>{
-        
+
         const response = await fetch(`${API_BASE_URL}${url}`, {
             ...options,
             headers:{
@@ -60,7 +63,7 @@ const useFetch = (token) => {
 
 
 
-    return{get,post,put,del}
+    return{get,post,put,del,}
 }
 
 
