@@ -1,58 +1,66 @@
-import { useState } from "react";
+import { useAuth } from "../authContext"
+import { useCallback } from "react"
 
 
-
-const useFetch = (url,token, options={}) => {
-
-    const [loading,setLoading] = useState(false)
-    const [error,setError] = useState(null)
+const API_BASE_URL = "http://localhost:5000"
 
 
+const useFetch = (token) => {
 
+    const {logout}  = useAuth()
 
-    const fetchData = async (fetchOptions) => {
+    const handleResponse = useCallback(async (response) => {
 
-        setLoading(true)
-        setError(null)
+        if(response.status === 401){
 
+            logout()
+            throw new Error('Unauthorized')
 
-
-        try {
-            
-            const response = await fetch(`http://localhost:5000/${url}`, {
-                ...options,
-                ...fetchOptions,
-                headers: {
-                    'Content-Type' : 'application/json',
-                    Authorization : token ? token : '',
-                    ...options.headers
-                }})
-
-
-                return response
-
-
-
-        } catch (error) {
-            
-            setError(error)
-
-        } finally {
-            setLoading(false)
         }
 
-    }
+        return response
 
-    return{
-        loading,
-        error,
-        get  : () => fetchData({method : "GET" }),  
-        post : (body) => fetchData({method:"POST", body: JSON.stringify(body)}),
-        put : (body) => fetchData({method : "PUT", body : JSON.stringify(body)}),
-        del : () => fetchData({method : "DELETE"})
+    },[logout])
 
 
-    }
+
+    const fetchWithAuth = useCallback(async (url, options = {}) =>{
+        
+        const response = await fetch(`${API_BASE_URL}${url}`, {
+            ...options,
+            headers:{
+                ...options.headers,
+                Authorization: token
+            }
+        })
+
+        return handleResponse(response);
+
+    },[token,handleResponse])
+
+
+    const get = useCallback((endpoint) => fetchWithAuth(endpoint), [fetchWithAuth])
+
+    const post = useCallback((endpoint,data) => fetchWithAuth(endpoint, {
+        method : 'POST',
+        headers: {'Content-Type' : 'application/json'},
+        body: JSON.stringify(data)
+    }),[fetchWithAuth])
+    
+    
+    const put = useCallback((endpoint,data) => fetchWithAuth(endpoint, {
+        method : 'PUT',
+        headers: {'Content-Type' : 'application/json'},
+        body: JSON.stringify(data)
+    }),[fetchWithAuth])
+
+    const del = useCallback((endpoint) => fetchWithAuth(endpoint, {
+        method: 'DELETE',
+    }),[fetchWithAuth])
+
+
+
+    return{get,post,put,del}
 }
 
 

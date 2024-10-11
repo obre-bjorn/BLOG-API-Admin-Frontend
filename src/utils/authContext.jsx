@@ -1,5 +1,6 @@
+/* eslint-disable react/prop-types */
 import { createContext, useContext, useState } from "react";
-import useFetch from "./hooks/useFetch";
+
 
 
 export const AuthContext = createContext()
@@ -10,15 +11,18 @@ function useProviderAuth (){
 
     const [token, setToken] = useState(localStorage.getItem('token') || null)
 
-    const {post} =  useFetch('login','',{})
-
-
 
     async function login(formData){
 
         try {
         
-            const response = await post(formData)
+            const response = await fetch('http://localhost:5000/login', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify(formData), // Sending login credentials
+                                        });
 
             if(!response.ok){
 
@@ -70,7 +74,6 @@ export const AuthProvider = ({children}) => {
 export const useAuth  = () => {
 
     const context = useContext(AuthContext)
-
     return context
 
-}
+}     
