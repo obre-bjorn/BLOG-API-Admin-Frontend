@@ -55,7 +55,7 @@ export const usePosts = () => {
     const updatePost = async (id,postData) =>{
         try {
             
-            const response = await put(`post/${id}`,postData)
+            const response = await put(`/post/${id}`,postData)
 
             if(response.ok){
 

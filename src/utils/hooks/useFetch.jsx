@@ -23,7 +23,7 @@ const useFetch = (token) => {
 
         return response
 
-    },[logout])
+    },[])
 
 
 

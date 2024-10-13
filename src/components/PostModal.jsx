@@ -28,7 +28,7 @@ const PostModal = ({isOpen, onClose, onSubmit, initialData}) => {
 
         setPostData( prev => ({
             ...prev,
-            [name] : type === "checkbox" ? checked : value
+            [name] : type == "checkbox" ? checked : value
         }))
 
     }
@@ -51,7 +51,7 @@ const PostModal = ({isOpen, onClose, onSubmit, initialData}) => {
                     <h3 className="font-bold text-lg">Fill the form to Add Post</h3>
                     
                     <form className="form-control gap-5 w-auto" onSubmit={handleSubmit}>
-                        {/* if there is a button, it will close the modal */}
+
 
                         <div>
 
@@ -68,7 +68,7 @@ const PostModal = ({isOpen, onClose, onSubmit, initialData}) => {
 
                         <label className="label cursor-pointer md:w-64">
                             <span className="label-text">Published</span>
-                            <input type="checkbox" className="toggle"  name="publish"  onChange={handlePostChange} checked={postData.published}/>
+                            <input type="checkbox" className="toggle"  name="published"  onChange={handlePostChange} checked={postData.published}/>
                         </label>
 
 

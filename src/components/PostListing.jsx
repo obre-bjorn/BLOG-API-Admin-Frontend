@@ -1,13 +1,16 @@
 /* eslint-disable react/prop-types */
+import { Link } from "react-router-dom"
 import Post from "./Post"
+
 
 
 const PostListing = ({blogs,onEdit,onDelete}) => {
 
     const Posts = blogs.map(
-                        blog => 
-                            <Post key={blog.id} blog={blog} onEdit={onEdit} onDelete={onDelete}
-                        />)
+                        blog => <Link to={`/post/${blog.id}`} key={blog.id}>
+                            <Post key={blog.id} blog={blog} onEdit={onEdit} onDelete={onDelete}/>
+                        </Link>
+            )
 
 
 
