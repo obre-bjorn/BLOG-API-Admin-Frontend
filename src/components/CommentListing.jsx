@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import Comment from "./comment"
 
-const CommentListing = ({comments}) => {
+const CommentListing = ({comments, postId}) => {
 
 
   return (
@@ -11,7 +11,7 @@ const CommentListing = ({comments}) => {
             {comments.length > 0 ? (
               <div className="space-y-4">
                 {comments.map((comment) => (
-                  <Comment key={comment.id} comment= {comment}/>
+                  <Comment key={comment.id} comment= {comment} postId={postId}/>
                 ))}
               </div>
             ) : (

@@ -76,8 +76,7 @@ const PostsPage = () => {
     
 
     return (
-        <div>
-            <h1>POSTS </h1>
+        <div className="p-8">
 
             <button className="btn" onClick={() => handleOpenModal()}>Add Post</button>
 

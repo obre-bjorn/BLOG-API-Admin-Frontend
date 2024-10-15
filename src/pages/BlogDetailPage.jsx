@@ -56,7 +56,7 @@ const BlogDetailPage = () => {
           </div>
         </div>
 
-        <CommentListing  comments={blog.comments}/>
+        <CommentListing  comments={blog.comments} postId={blog.id}/>
 
         {/* Navigation Buttons */}
         <div className="p-8 flex justify-between">
