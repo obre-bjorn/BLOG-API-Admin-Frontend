@@ -31,7 +31,7 @@ const UsersPage = () => {
   }, []);
 
 
-  function handleOpenModal (user=false) {
+  function handleOpenModal (user) {
     setIsModalOpen(true)
     setCurrentUser(user)
   }
@@ -45,11 +45,11 @@ const UsersPage = () => {
   }
 
 
-  async function handleSubmitUser(){
+  async function handleSubmitUser(userId, data){
 
 
     try {
-        const user = await post("http://localhost:5000/user/",)
+        const user = await post(`/user/${userId}`,{role : data })
         console.log('Updated ',user)
 
     } catch (error) {
@@ -60,9 +60,9 @@ const UsersPage = () => {
 
     }
 
-
-
   }
+
+  console.log("CURRENT USER: ", currentUser )
 
 
   return (
@@ -77,11 +77,11 @@ const UsersPage = () => {
           <h3>{user.role}</h3>
 
 
-          <button className="btn btn-primary btn-sm" onClick={() => handleOpenModal(user.role == "ADMIN")}> Edit User</button>
-          <UserModal isOpen={ () => {isModalOpen(user)}} data={currentUser} onClose = {handleCloseModal} onSubmit = {handleSubmitUser}/>
+          <button className="btn btn-primary btn-sm" onClick={() => {  handleOpenModal(user) } }>Edit User</button>
         </div>
       )
       }
+      <UserModal isOpen={isModalOpen} user={currentUser} onClose = {handleCloseModal} onSubmit = {handleSubmitUser}/>
     </div>
   )
 }

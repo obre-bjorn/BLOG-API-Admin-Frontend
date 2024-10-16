@@ -1,32 +1,41 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
-const UserModal = ({isOpen,onClose, onSubmit, data}) => {
+const UserModal = ({isOpen,onClose, onSubmit, user}) => {
 
 
-    const [role, setRole] = useState(data.role)
+    const [admin, setAdmin] = useState(user.role == "ADMIN")
 
+    useEffect ( () => {
+
+        setAdmin(user.role == "ADMIN")
+
+    },[user])
 
 
     const handleUserChange = () => {
 
-        setRole((prev) => setRole(!prev))
+        setAdmin((prev) => !prev)
 
     }
 
    function handleSubmit (e) {
+
     e.preventDefault()
-    onSubmit(data.id)
+    const role = admin ? "ADMIN" : "USER" 
+
+    onSubmit(user.id, {role : role})
 
    }
 
+   console.log("ROLE: ", user)
 
-    if(!isOpen) null
+    if(!isOpen) return null
 
     return (
         <dialog id="my_modal_4" className="modal modal-open" >
                 <div className="modal-box w-11/12 max-w-5xl">
-                    <h3 className="font-bold text-lg">Fill the form to Add Post</h3>
+                    <h3 className="font-bold text-lg">Configure User Settings</h3>
 
                     
                     
@@ -35,7 +44,7 @@ const UserModal = ({isOpen,onClose, onSubmit, data}) => {
 
                         <label className="label cursor-pointer md:w-64">
                             <span className="label-text">Is Admin:</span>
-                            <input type="checkbox" className="toggle"  name="published"  onChange={handleUserChange} checked={role}/>
+                            <input type="checkbox" className="toggle"  name="published"  onChange={handleUserChange} checked={admin}/>
                         </label>
 
 
