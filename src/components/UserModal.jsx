@@ -1,11 +1,27 @@
+/* eslint-disable react/prop-types */
+import { useState } from "react"
 
-const UserModal = ({isOpen,isClose, handleSubmit, data}) => {
+const UserModal = ({isOpen,onClose, onSubmit, data}) => {
 
 
-    const [role, setRole] = useState(data.role == "ADMIN")
+    const [role, setRole] = useState(data.role)
 
 
-    if(isOpen) null
+
+    const handleUserChange = () => {
+
+        setRole((prev) => setRole(!prev))
+
+    }
+
+   function handleSubmit (e) {
+    e.preventDefault()
+    onSubmit(data.id)
+
+   }
+
+
+    if(!isOpen) null
 
     return (
         <dialog id="my_modal_4" className="modal modal-open" >
@@ -19,11 +35,11 @@ const UserModal = ({isOpen,isClose, handleSubmit, data}) => {
 
                         <label className="label cursor-pointer md:w-64">
                             <span className="label-text">Is Admin:</span>
-                            <input type="checkbox" className="toggle"  name="published"  onChange={handlePostChange} checked={postData.published}/>
+                            <input type="checkbox" className="toggle"  name="published"  onChange={handleUserChange} checked={role}/>
                         </label>
 
 
-                        <button type="submit" className="btn" > {postData.id ? "Update" : "Add"} Post</button>
+                        <button type="submit" className="btn" >Update User</button>
                     </form>
                     
                     <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={() => onClose()}>X</button>

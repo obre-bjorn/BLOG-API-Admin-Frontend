@@ -1,9 +1,17 @@
 import { useState,useEffect } from "react"
 
 
-const UsersPage = () => {
+import UserModal from "../components/UserModal";
+import useFetch from "../utils/hooks/useFetch";
+import { useAuth } from "../utils/authContext";
 
+
+const UsersPage = () => {
+  const {token} = useAuth()
   const [users,setUsers] = useState(null)
+  const {post} = useFetch(token)
+  const [isModalOpen,setIsModalOpen] = useState(false)
+  const [currentUser, setCurrentUser] = useState({})
   
 
   useEffect(() => {
@@ -17,27 +25,45 @@ const UsersPage = () => {
 
       setUsers(data.users)
 
-
-
     }
 
     fetchUsers()
   }, []);
 
 
+  function handleOpenModal (user=false) {
+    setIsModalOpen(true)
+    setCurrentUser(user)
+  }
 
-    const handleEditUser = (user.id) => {
+
+  function handleCloseModal () {
+
+    setIsModalOpen(false)
+    setCurrentUser(false)
+
+  }
 
 
+  async function handleSubmitUser(){
 
+
+    try {
+        const user = await post("http://localhost:5000/user/",)
+        console.log('Updated ',user)
+
+    } catch (error) {
+
+      console.error("Failed to update user in DB",error);
       
 
 
-
-
-
-
     }
+
+
+
+  }
+
 
   return (
     <div>
@@ -51,11 +77,11 @@ const UsersPage = () => {
           <h3>{user.role}</h3>
 
 
-          <button className="btn btn-primary btn-sm"> Edit User</button>
+          <button className="btn btn-primary btn-sm" onClick={() => handleOpenModal(user.role == "ADMIN")}> Edit User</button>
+          <UserModal isOpen={ () => {isModalOpen(user)}} data={currentUser} onClose = {handleCloseModal} onSubmit = {handleSubmitUser}/>
         </div>
       )
       }
-    
     </div>
   )
 }
