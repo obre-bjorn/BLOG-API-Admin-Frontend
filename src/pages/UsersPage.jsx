@@ -44,6 +44,14 @@ const UsersPage = () => {
 
   }
 
+  function handleSearchUsername (e) {
+
+    e.preventDefault()
+
+
+
+  }
+
 
   async function handleSubmitUser(userId, data){
 
@@ -66,22 +74,38 @@ const UsersPage = () => {
 
 
   return (
-    <div>
+    <div className="container mx-auto flex flex-col items-center ">
+
+
+
+      <form action="" onSubmit={handleSearchUsername}>
+      <label htmlFor="search" className="label-text">
+        Search Username: 
+          <input className="input-sm input-secondary ml-3" type="search" name="search" id="search" />
+      </label>
+      </form>
+
+      <div className="divider divide-primary my-10">Users</div>
+
+    <div className=" container flex flex-row  justify-center items-center p-3 gap-5 flex-wrap">
+
 
       {!users ?  <h1>loading...</h1> :
 
       users.map((user)=> 
-        <div key={user.id} className="mb-5" >
+        <div key={user.id} className="mb-5 card w-80 max-w-lg" >
           <h1 className="card-title">{user.username}</h1>
           <h2>{user.email}</h2>
           <h3>{user.role}</h3>
 
 
-          <button className="btn btn-primary btn-sm" onClick={() => {  handleOpenModal(user) } }>Edit User</button>
+          <button className="btn btn-primary btn-sm " onClick={() => {  handleOpenModal(user) } }>Edit User</button>
         </div>
       )
       }
       <UserModal isOpen={isModalOpen} user={currentUser} onClose = {handleCloseModal} onSubmit = {handleSubmitUser}/>
+    </div>
+
     </div>
   )
 }
