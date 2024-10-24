@@ -39,11 +39,12 @@ import { useNavigate } from "react-router-dom"
 
             const response = await login(formData)
 
-            if(response.ok){
+            console.log(response)
+
 
                 navigate('/')
 
-            }
+            
 
         
 

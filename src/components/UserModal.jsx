@@ -28,7 +28,6 @@ const UserModal = ({isOpen,onClose, onSubmit, user}) => {
 
    }
 
-   console.log("ROLE: ", user)
 
     if(!isOpen) return null
 

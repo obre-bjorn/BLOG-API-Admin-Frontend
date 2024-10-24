@@ -12,7 +12,7 @@ const useFetch = (token) => {
 
     const handleResponse = useCallback(async (response) => {
 
-        if(response.status === 401){
+        if(response.status == 401){
 
             logout()
             throw new Error('Unauthorized')

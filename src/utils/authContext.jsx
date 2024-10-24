@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useState } from "react";
+import {jwtDecode } from "jwt-decode";
 
 
 
@@ -9,8 +10,7 @@ export const AuthContext = createContext()
 
 function useProviderAuth (){
 
-    const [token, setToken] = useState(localStorage.getItem('token') || null)
-
+    const [token, setToken] = useState(() => localStorage.getItem('token'))
 
     async function login(formData){
 
@@ -35,7 +35,6 @@ function useProviderAuth (){
 
             setToken(data.token)
 
-
         } catch (error) {
             
             console.log(error)
@@ -44,12 +43,27 @@ function useProviderAuth (){
 
     }
 
-    const isAuthenticated = !!token 
-
     function logout(){
-        localStorage.removeItem('token'),
+        localStorage.removeItem('token')
         setToken(null)
 
+    }
+
+
+    const isAuthenticated = () => {
+        if(!token) {
+            return false
+        }
+
+        const decodedToken = jwtDecode(token)
+        const currentTime = Date.now()/1000
+
+        if (decodedToken.exp < currentTime) {
+            logout(); // Automatically log out if token is expired
+            return false;
+        }
+
+        return true
     }
 
     return {

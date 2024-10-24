@@ -6,6 +6,7 @@ import { createBrowserRouter,RouterProvider } from 'react-router-dom'
 import { AuthProvider } from './utils/authContext.jsx'
 import App from './App.jsx'
 import './index.css'
+import { Protected } from './routes/Protected.jsx'
 import Homepage from './pages/Homepage.jsx'
 import LoginPage  from './pages/LoginPage.jsx'
 import UsersPage from './pages/UsersPage'
@@ -22,21 +23,26 @@ const router = createBrowserRouter([
     children: [
       {
         path:'/',
-        element: <Homepage/>,
-        children: [
-          {
-            path: '/',
-            element: <PostsPage/>
-          },
-          {
-            path: '/users',
-            element: <UsersPage/> 
-          },
-          {  
-            path : '/post/:postId',
-            element: <BlogDetailPage/>
-          }
-        ]
+        element: <Protected/>,
+        children: [{
+          path:'/',
+          element:<Homepage/>,
+          children: [
+            {
+              path: '/',
+              element: <PostsPage/>
+            },
+            {
+              path: '/users',
+              element: <UsersPage/> 
+            },
+            {  
+              path : '/post/:postId',
+              element: <BlogDetailPage/>
+            }
+          ]
+        }
+      ]
       },
       {
         path: '/login',
@@ -48,8 +54,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-  <AuthProvider>
-    <RouterProvider router={router}/>
-  </AuthProvider>
+    <AuthProvider>
+      <RouterProvider router={router}/>
+    </AuthProvider>
   </StrictMode>,
 )
