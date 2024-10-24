@@ -4,6 +4,15 @@
 const Post = ({blog, onEdit, onDelete}) => {
 
 
+    const handlePostEdit = (e,blog) => {
+
+        e.stopPropagation()
+        e.preventDefault()
+        onEdit(blog)
+
+    }
+
+
 
 
 
@@ -13,7 +22,7 @@ const Post = ({blog, onEdit, onDelete}) => {
                 <h2 className="card-title">{blog.title}</h2>
                 <p className="text-left">{`${blog.content.slice(0,150)}...`}</p>
                 <div className="card-actions justify-end">
-                    <button className="btn btn-primary" onClick={() => onEdit(blog)}>Edit</button>
+                    <button className="btn btn-primary" onClick={(e) => handlePostEdit(e,blog)}>Edit</button>
                     <button className="btn btn-warning" onClick={ () => onDelete(blog.id)}>Delete</button>
                 </div>
             </div>

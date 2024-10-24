@@ -34,6 +34,8 @@ const PostsPage = () => {
 
     }
 
+  
+
 
     const handleCloseModal = () =>{
         setIsModalOpen(false)
