@@ -7,12 +7,13 @@ import { AuthProvider } from './utils/authContext.jsx'
 import App from './App.jsx'
 import './index.css'
 import { Protected } from './routes/Protected.jsx'
-import Homepage from './pages/Homepage'
-import LoginPage  from './pages/LoginPage'
-import UsersPage from './pages/UsersPage'
-import BlogDetailPage from './pages/BlogDetailPage'
-import PostsPage from './pages/PostsPage'
-import ErrorPage from './pages/ErrorPage'
+
+import Homepage from '/src/pages/Homepage'
+import LoginPage  from '/src/pages/LoginPage'
+import UsersPage from '/src/pages/UsersPage'
+import BlogDetailPage from '/src/pages/BlogDetailPage'
+import PostsPage from '/src/pages/PostsPage'
+import ErrorPage from '/src/pages/ErrorPage'
 
 
 const router = createBrowserRouter([
