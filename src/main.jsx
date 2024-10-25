@@ -11,7 +11,7 @@ import LoginPage  from './pages/LoginPage.jsx'
 import UsersPage from './pages/UsersPage.jsx'
 import BlogDetailPage from './pages/BlogDetailPage.jsx'
 import PostsPage from './pages/PostsPage.jsx'
-import Homepage from './pages/Homepage.jsx'
+import RootPage from './pages/RootPage.jsx'
 import ErrorPage from './pages/ErrorPage.jsx'
 import { Protected } from './routes/Protected.jsx'
 
@@ -27,7 +27,7 @@ const router = createBrowserRouter([
         element: <Protected/>,
         children: [{
           path:'/',
-          element:<Homepage/>,
+          element:<RootPage/>,
           children: [
             {
               path: '/',
