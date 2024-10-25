@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import Comment from "./comment"
+import Comment from "./Comment.jsx"
 
 const CommentListing = ({comments, postId}) => {
 
