@@ -8,12 +8,12 @@ import App from './App.jsx'
 import './index.css'
 import { Protected } from './routes/Protected.jsx'
 
-import Homepage from '/src/pages/Homepage'
-import LoginPage  from '/src/pages/LoginPage'
-import UsersPage from '/src/pages/UsersPage'
-import BlogDetailPage from '/src/pages/BlogDetailPage'
-import PostsPage from '/src/pages/PostsPage'
-import ErrorPage from '/src/pages/ErrorPage'
+import Homepage from './pages/Homepage.jsx'
+import LoginPage  from './pages/LoginPage.jsx'
+import UsersPage from './pages/UsersPage.jsx'
+import BlogDetailPage from './pages/BlogDetailPage.jsx'
+import PostsPage from './pages/PostsPage.jsx'
+import ErrorPage from './pages/ErrorPage.jsx'
 
 
 const router = createBrowserRouter([
