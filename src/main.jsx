@@ -6,14 +6,14 @@ import { createBrowserRouter,RouterProvider } from 'react-router-dom'
 import { AuthProvider } from './utils/authContext.jsx'
 import App from './App.jsx'
 import './index.css'
-import { Protected } from './routes/Protected.jsx'
 
-import Homepage from './pages/Homepage.jsx'
 import LoginPage  from './pages/LoginPage.jsx'
 import UsersPage from './pages/UsersPage.jsx'
 import BlogDetailPage from './pages/BlogDetailPage.jsx'
 import PostsPage from './pages/PostsPage.jsx'
+import Homepage from './pages/Homepage.jsx'
 import ErrorPage from './pages/ErrorPage.jsx'
+import { Protected } from './routes/Protected.jsx'
 
 
 const router = createBrowserRouter([
