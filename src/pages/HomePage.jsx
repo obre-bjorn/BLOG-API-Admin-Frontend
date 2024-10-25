@@ -2,7 +2,7 @@
 import { Outlet} from "react-router-dom"
 import Navbar from "../components/Navbar"
 
-const HomePage = () => {
+const Homepage = () => {
 
     
 
@@ -15,4 +15,4 @@ const HomePage = () => {
     )
 }
 
-export default HomePage
+export default Homepage

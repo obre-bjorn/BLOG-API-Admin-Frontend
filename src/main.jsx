@@ -7,7 +7,7 @@ import { AuthProvider } from './utils/authContext.jsx'
 import App from './App.jsx'
 import './index.css'
 import { Protected } from './routes/Protected.jsx'
-import HomePage from './pages/Homepage.jsx'
+import Homepage from './pages/Homepage.jsx'
 import LoginPage  from './pages/LoginPage.jsx'
 import UsersPage from './pages/UsersPage'
 import BlogDetailPage from './pages/BlogDetailPage.jsx'
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
         element: <Protected/>,
         children: [{
           path:'/',
-          element:<HomePage/>,
+          element:<Homepage/>,
           children: [
             {
               path: '/',
