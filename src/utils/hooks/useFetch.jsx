@@ -2,7 +2,7 @@ import { useAuth } from "../authContext"
 import { useCallback } from "react"
 
 
-const API_BASE_URL = "http://localhost:5000"
+const API_BASE_URL = "https://blog-api-tez6.onrender.com"
 
 
 const useFetch = (token) => {

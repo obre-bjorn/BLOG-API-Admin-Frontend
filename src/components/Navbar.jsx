@@ -1,6 +1,17 @@
 import { Link } from "react-router-dom"
+import { useAuth } from "../utils/authContext"
 
 const Navbar = () => {
+
+
+    const {logout} = useAuth()
+
+
+    const handleLogOut = () => {
+
+        logout()
+
+    }
 
 
     return (
@@ -14,12 +25,12 @@ const Navbar = () => {
                 <li><Link to="/users">Users</Link></li>
                 <li>
                     <details>
-                    <summary>Parent</summary>
+                    <summary>Menu</summary>
                     <ul className="bg-base-100 rounded-t-none p-2">
                         <li>
-                            <Link>Logout</Link>
+                            <button onClick={handleLogOut}>Logout</button>
                         </li>
-                        <li><a>Link 2</a></li>
+                        
                     </ul>
                     </details>
                 </li>

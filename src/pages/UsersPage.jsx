@@ -20,7 +20,7 @@ const UsersPage = () => {
 
     const fetchUsers = async () => {
 
-      const response = await fetch('http://localhost:5000/users')
+      const response = await fetch('https://blog-api-tez6.onrender.com/users')
 
       const data = await response.json()
 
